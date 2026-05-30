@@ -175,27 +175,7 @@
     }
     .foot-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
     .foot h2 { font-size: clamp(20px, 3vw, 26px); letter-spacing: -.02em; margin: 0; font-weight: 700; }
-    .foot-talk {
-      display: inline-flex; align-items: center; gap: 12px;
-      padding: 0; margin: 0; border: none; background: none; cursor: pointer;
-      font-family: inherit; color: var(--ink); font-weight: 700;
-      font-size: clamp(20px, 3vw, 26px); letter-spacing: -.02em; line-height: 1.1;
-      transition: opacity .15s ease;
-    }
-    .foot-talk .talk-text {
-      text-decoration: underline; text-decoration-thickness: 2px;
-      text-decoration-color: var(--ink); text-underline-offset: 5px;
-    }
-    .foot-talk .talk-arrow {
-      display: inline-flex; align-items: center; justify-content: center; flex: none;
-      width: 1.5em; height: 1.5em; border-radius: 50%;
-      background: var(--ink); color: #fff; font-size: .66em; font-weight: 600;
-      box-shadow: var(--shadow); transition: transform .2s ease;
-    }
-    .foot-talk:hover { opacity: .85; }
-    .foot-talk:hover .talk-arrow { transform: translateX(3px); }
-    .foot-talk:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; border-radius: 6px; }
-    .foot p { margin: 6px 0 0; color: var(--muted); font-size: 15px; }
+    .foot p { margin: 14px 0 0; color: var(--muted); font-size: 15px; }
     .foot-actions { display: flex; gap: 12px; flex-wrap: wrap; }
     .copyright { margin-top: 40px; font-size: 13px; color: var(--muted); }
 
@@ -419,7 +399,7 @@
     <div class="wrap">
       <div class="foot-inner">
         <div>
-          <button type="button" class="foot-talk" data-contact aria-label="Let's talk — open contact form"><span class="talk-text">Let's talk</span><span class="talk-arrow" aria-hidden="true">→</span></button>
+          <button type="button" class="btn btn-primary" data-contact>Let's talk →</button>
           <p>The fastest way to reach me and see my full background.</p>
         </div>
         <div class="foot-actions">
