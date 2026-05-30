@@ -173,11 +173,11 @@
       border-top: 1px solid var(--line); margin-top: 56px; padding: 54px 0 64px;
       background: var(--bg-alt);
     }
-    .foot-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+    .foot-inner { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 18px; }
     .foot h2 { font-size: clamp(20px, 3vw, 26px); letter-spacing: -.02em; margin: 0; font-weight: 700; }
-    .foot p { margin: 14px 0 0; color: var(--muted); font-size: 15px; }
-    .foot-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-    .copyright { margin-top: 40px; font-size: 13px; color: var(--muted); }
+    .foot-inner .btn { padding: 15px 34px; font-size: 16.5px; }
+    .foot p { margin: 0; color: var(--muted); font-size: 15.5px; }
+    .copyright { margin-top: 40px; font-size: 13px; color: var(--muted); text-align: center; }
 
     /* ---------- Responsive ---------- */
     @media (max-width: 820px) {
@@ -398,13 +398,8 @@
   <footer class="foot">
     <div class="wrap">
       <div class="foot-inner">
-        <div>
-          <button type="button" class="btn btn-primary" data-contact>Let's talk →</button>
-          <p>The fastest way to reach me and see my full background.</p>
-        </div>
-        <div class="foot-actions">
-          <a class="btn btn-primary" href="https://www.linkedin.com/in/michaelfinneran" target="_blank" rel="noopener">Connect on LinkedIn ↗</a>
-        </div>
+        <button type="button" class="btn btn-primary" data-contact>Let's talk →</button>
+        <p>The fastest way to reach me and see my full background.</p>
       </div>
       <div class="copyright">© 2026 Michael Finneran · Boston, MA</div>
     </div>
