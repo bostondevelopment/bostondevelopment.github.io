@@ -193,6 +193,58 @@
       .top-link { padding: 7px 13px; }
       .card { padding: 26px 24px 24px; }
     }
+
+    /* ---------- Contact modal ---------- */
+    button.btn { border: none; cursor: pointer; font-family: inherit; }
+    .cm-overlay {
+      position: fixed; inset: 0; z-index: 100; display: none;
+      align-items: center; justify-content: center; padding: 20px;
+      background: rgba(20,23,28,.55);
+      backdrop-filter: saturate(140%) blur(5px); -webkit-backdrop-filter: saturate(140%) blur(5px);
+    }
+    .cm-overlay.open { display: flex; }
+    .cm-card {
+      position: relative; width: 100%; max-width: 460px; max-height: 90vh; overflow: auto;
+      background: var(--bg); border: 1px solid var(--line); border-radius: 18px;
+      padding: 34px 32px 28px; box-shadow: var(--shadow-hover);
+      animation: cm-pop .2s ease;
+    }
+    @keyframes cm-pop { from { transform: translateY(10px) scale(.98); opacity: 0; } to { transform: none; opacity: 1; } }
+    .cm-close {
+      position: absolute; top: 14px; right: 16px; border: none; background: none;
+      font-size: 26px; line-height: 1; cursor: pointer; color: var(--muted); padding: 4px;
+      transition: color .15s ease;
+    }
+    .cm-close:hover { color: var(--ink); }
+    .cm-kicker {
+      font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--muted); margin: 0 0 10px;
+    }
+    .cm-card h3 { margin: 0 0 8px; font-size: 25px; letter-spacing: -.02em; font-weight: 700; color: var(--ink); }
+    .cm-sub { margin: 0 0 22px; color: var(--ink-soft); font-size: 15px; line-height: 1.5; }
+    .cm-field { margin-bottom: 15px; }
+    .cm-field label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--ink); }
+    .cm-field label .opt { font-weight: 500; color: var(--muted); }
+    .cm-field input, .cm-field textarea {
+      width: 100%; box-sizing: border-box; padding: 12px 14px;
+      border: 1px solid var(--line); border-radius: 10px;
+      font-size: 15px; font-family: inherit; background: var(--bg-alt); color: var(--ink);
+      transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+    .cm-field input::placeholder, .cm-field textarea::placeholder { color: var(--muted); }
+    .cm-field input:focus, .cm-field textarea:focus {
+      outline: none; border-color: var(--ink); background: var(--bg);
+      box-shadow: 0 0 0 3px rgba(20,23,28,.08);
+    }
+    .cm-field textarea { min-height: 96px; resize: vertical; }
+    .cm-submit {
+      width: 100%; margin-top: 8px; padding: 14px; border: none; border-radius: 999px;
+      background: var(--ink); color: #fff; font-size: 15.5px; font-weight: 600;
+      cursor: pointer; font-family: inherit;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .cm-submit:hover { transform: translateY(-1px); box-shadow: var(--shadow-hover); }
+    .cm-note { margin: 14px 0 0; font-size: 12.5px; color: var(--muted); text-align: center; }
   </style>
 </head>
 <body>
@@ -351,12 +403,96 @@
           <p>The fastest way to reach me and see my full background.</p>
         </div>
         <div class="foot-actions">
-          <a class="btn btn-primary" href="https://www.linkedin.com/in/michaelfinneran" target="_blank" rel="noopener">Connect on LinkedIn ↗</a>
+          <button type="button" class="btn btn-primary" data-contact>Let's talk →</button>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/michaelfinneran" target="_blank" rel="noopener">Connect on LinkedIn ↗</a>
         </div>
       </div>
       <div class="copyright">© 2026 Michael Finneran · Boston, MA</div>
     </div>
   </footer>
+
+  <!-- Contact modal -->
+  <div class="cm-overlay" id="cm-overlay" role="dialog" aria-modal="true" aria-labelledby="cm-title">
+    <div class="cm-card">
+      <button class="cm-close" id="cm-close" type="button" aria-label="Close">&times;</button>
+      <p class="cm-kicker">Get in touch</p>
+      <h3 id="cm-title">Let's talk.</h3>
+      <p class="cm-sub">Tell me a little about you and why you're reaching out. This opens your email app with a message ready to send — just review and hit send.</p>
+      <form id="cm-form" novalidate>
+        <div class="cm-field">
+          <label for="cm-name">Name</label>
+          <input id="cm-name" name="name" type="text" required autocomplete="name" />
+        </div>
+        <div class="cm-field">
+          <label for="cm-company">Company <span class="opt">(optional)</span></label>
+          <input id="cm-company" name="company" type="text" autocomplete="organization" />
+        </div>
+        <div class="cm-field">
+          <label for="cm-email">Your email</label>
+          <input id="cm-email" name="email" type="email" required autocomplete="email" />
+        </div>
+        <div class="cm-field">
+          <label for="cm-reason">Reason for reaching out</label>
+          <textarea id="cm-reason" name="reason" required placeholder="A line or two about why you're getting in touch."></textarea>
+        </div>
+        <button type="submit" class="cm-submit">Open email →</button>
+        <p class="cm-note">No data leaves your device — this just drafts an email to me.</p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var RECIPIENT = "bostondevelopmentco@gmail.com";
+      var overlay = document.getElementById('cm-overlay');
+      var form = document.getElementById('cm-form');
+
+      function openModal(e) {
+        if (e) e.preventDefault();
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        setTimeout(function () { document.getElementById('cm-name').focus(); }, 60);
+      }
+      function closeModal() {
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      Array.prototype.forEach.call(document.querySelectorAll('[data-contact]'), function (btn) {
+        btn.addEventListener('click', openModal);
+      });
+      document.getElementById('cm-close').addEventListener('click', closeModal);
+      overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(); });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
+      });
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var name = document.getElementById('cm-name').value.trim();
+        var company = document.getElementById('cm-company').value.trim();
+        var email = document.getElementById('cm-email').value.trim();
+        var reason = document.getElementById('cm-reason').value.trim();
+        if (!name || !email || !reason) {
+          if (form.reportValidity) form.reportValidity();
+          return;
+        }
+        var lines = [];
+        lines.push("Hi Michael,");
+        lines.push("");
+        lines.push("My name is " + name + (company ? " from " + company : "") + ", and I'm reaching out via your portfolio.");
+        lines.push("");
+        lines.push(reason);
+        lines.push("");
+        lines.push("You can reach me at " + email + ".");
+        var subject = "Reaching out from your portfolio";
+        var href = "mailto:" + RECIPIENT +
+          "?subject=" + encodeURIComponent(subject) +
+          "&body=" + encodeURIComponent(lines.join("\r\n"));
+        window.location.href = href;
+      });
+    })();
+  </script>
 
 </body>
 </html>
