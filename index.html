@@ -175,6 +175,14 @@
     }
     .foot-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
     .foot h2 { font-size: clamp(20px, 3vw, 26px); letter-spacing: -.02em; margin: 0; font-weight: 700; }
+    .foot-talk {
+      display: inline-block; padding: 0; margin: 0; border: none; background: none; cursor: pointer;
+      font-family: inherit; color: var(--ink); font-weight: 700;
+      font-size: clamp(20px, 3vw, 26px); letter-spacing: -.02em; line-height: 1.1;
+      text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 4px;
+      transition: text-decoration-color .18s ease;
+    }
+    .foot-talk:hover { text-decoration-color: var(--ink); }
     .foot p { margin: 6px 0 0; color: var(--muted); font-size: 15px; }
     .foot-actions { display: flex; gap: 12px; flex-wrap: wrap; }
     .copyright { margin-top: 40px; font-size: 13px; color: var(--muted); }
@@ -399,12 +407,11 @@
     <div class="wrap">
       <div class="foot-inner">
         <div>
-          <h2>Let's talk.</h2>
+          <button type="button" class="foot-talk" data-contact>Let's talk.</button>
           <p>The fastest way to reach me and see my full background.</p>
         </div>
         <div class="foot-actions">
-          <button type="button" class="btn btn-primary" data-contact>Let's talk →</button>
-          <a class="btn btn-ghost" href="https://www.linkedin.com/in/michaelfinneran" target="_blank" rel="noopener">Connect on LinkedIn ↗</a>
+          <a class="btn btn-primary" href="https://www.linkedin.com/in/michaelfinneran" target="_blank" rel="noopener">Connect on LinkedIn ↗</a>
         </div>
       </div>
       <div class="copyright">© 2026 Michael Finneran · Boston, MA</div>
